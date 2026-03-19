@@ -37,15 +37,10 @@ export default {
     return {
       drawerOpen: false,
       menuItems: [
-        { name: 'SMALL CAR REPAIR SERVICES ', path: '/repair' },
-        { name: 'LARGER CAR REPAIR SERVIces', path: '/truck' },
-        { name: 'CAR WASH SERVICES', path: '/carwash' },
-        { name: 'CAR PAINTING SERVICES', path: '/painting'},
-        { name: 'CAR BUYING AND SELLING SERVICES', path: '/trade'},
-        { name: 'CAR PARKING AND STORAGE SERVICES', path: '/parking'},
-        { name: 'CARGO TRANSPORTING SERVICES', path: '/cargo'},
-        { name: 'SPECIAL HIRE BUSES', path: '/hire'}
-
+        { name: 'CUSTOMER ', path: '/customer' },
+        { name: 'BUSINESS REPORT', path: '/report' },
+        { name: 'STAFF', path: '/staff' },
+        { name: 'STOCK', path: '/stock'},
       ]
     }
   }

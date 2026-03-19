@@ -17,7 +17,8 @@
   display:flex;
   align-items: center;
   justify-content: space-evenly;
-  padding: 10px;
+  padding: 5px;
+  height:30px;
   position: fixed;
   bottom: 0;
   width: 100%;

@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <h1 >CAR WASH MANAGEMENT SYSTEM</h1>
+    <h1 >CAR SERVICES MANAGEMENT SYSTEM</h1>
 
     <nav>
       <router-link to="/">Home</router-link>
