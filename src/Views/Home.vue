@@ -8,7 +8,7 @@
     <!-- Navigation Drawer -->
     <div class="navigation-drawer" :class="{ 'drawer-open': drawerOpen }">
       <div class="drawer-header">
-        <h2>My App</h2>
+        <h3>Services</h3>
         <button class="close-btn" @click="drawerOpen = false">×</button>
       </div>
       
@@ -37,15 +37,14 @@ export default {
     return {
       drawerOpen: false,
       menuItems: [
-        { name: 'SMALL CAR REPAIR SERVICES ', path: '/repair' },
-        { name: 'LARGER CAR REPAIR SERVIces', path: '/truck' },
+        { name: 'SMALL CAR REPAIR SERVICES', path: '/repair' },
+        { name: 'LARGER CAR REPAIR SERVICES', path: '/truck' },
         { name: 'CAR WASH SERVICES', path: '/carwash' },
         { name: 'CAR PAINTING SERVICES', path: '/painting'},
         { name: 'CAR BUYING AND SELLING SERVICES', path: '/trade'},
         { name: 'CAR PARKING AND STORAGE SERVICES', path: '/parking'},
         { name: 'CARGO TRANSPORTING SERVICES', path: '/cargo'},
         { name: 'SPECIAL HIRE BUSES', path: '/hire'}
-
       ]
     }
   }
@@ -58,39 +57,71 @@ export default {
   min-height: 100vh;
 }
 
+/* Menu toggle button - FIXED at top left corner */
 .menu-toggle {
   position: fixed;
   top: 20px;
-  left: 20px;
-  z-index: 100;
+  left: 30px;
+  z-index: 1001;
+  width:40px;
   font-size: 24px;
-  padding: 10px 15px;
+  padding: 8px 15px;
   cursor: pointer;
+  background-color: hsl(234, 47%, 49%);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  margin: 0;
+  transform: none;
 }
 
+.menu-toggle:hover {
+  background-color: #3aa876;
+  transform: none;
+}
+
+/* Navigation drawer - opens BELOW the button */
 .navigation-drawer {
   position: fixed;
-  top: 0;
-  left: -280px; /* Hidden by default */
+  top: 70px;  /* Below the button */
+  left: 20px;  /* Aligned with button */
   width: 280px;
-  height: 100vh;
   background-color: white;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-  transition: left 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  border-radius: 8px;
   z-index: 1000;
+  overflow: hidden;
+  max-height: calc(100vh - 90px);
   overflow-y: auto;
+  
+  /* Hidden state */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
 }
 
+/* Drawer open state */
 .navigation-drawer.drawer-open {
-  left: 0; /* Show when open */
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }
 
 .drawer-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 15px 20px;
+  background-color: #f8f9fa;
   border-bottom: 1px solid #eee;
+}
+
+.drawer-header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 18px;
 }
 
 .close-btn {
@@ -98,6 +129,19 @@ export default {
   cursor: pointer;
   background: none;
   border: none;
+  color: #666;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.close-btn:hover {
+  background-color: #eee;
 }
 
 .drawer-menu {
@@ -107,20 +151,24 @@ export default {
 }
 
 .drawer-menu li {
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #f0f0f0;
 }
 
 .drawer-menu a {
   display: block;
-  padding: 15px 20px;
+  padding: 12px 20px;
   text-decoration: none;
   color: #333;
+  font-size: 14px;
+  transition: background-color 0.2s;
 }
 
 .drawer-menu a:hover {
   background-color: #f5f5f5;
+  color: #42b983;
 }
 
+/* Overlay */
 .drawer-overlay {
   position: fixed;
   top: 0;
@@ -131,16 +179,25 @@ export default {
   z-index: 999;
 }
 
+/* Main content */
 .main-content {
   padding: 20px;
-  margin-left: 0;
-  transition: margin-left 0.3s ease;
+  margin-top: 0;
 }
 
-/* Optional: Push content when drawer opens on large screens */
-@media (min-width: 768px) {
-  .main-content.drawer-push {
-    margin-left: 280px;
+/* Responsive */
+@media (max-width: 768px) {
+  .navigation-drawer {
+    width: 100%;
+    left: 0;
+    top: 60px;
+    max-height: calc(100vh - 60px);
+    border-radius: 0;
+  }
+  
+  .menu-toggle {
+    top: 10px;
+    left: 10px;
   }
 }
 </style>

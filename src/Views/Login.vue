@@ -22,14 +22,7 @@
       <router-link to="/signup">Signup</router-link>
     </p>
     
-    <!-- Test credentials hint -->
-    <div style="margin-top: 20px; font-size: 12px; color: #666;">
-      <p><strong>Test emails:</strong></p>
-      <p>customer@test.com (any password)</p>
-      <p>technician@test.com (any password)</p>
-      <p>manager@test.com (any password)</p>
-      <p>security@test.com (any password)</p>
-    </div>
+    
   </div>
 </template>
 
@@ -42,54 +35,52 @@ export default {
       errorMessage: ""
     };
   },
+
   methods: {
     async loginUser() {
-      // Simple validation
       if (!this.email || !this.password) {
         this.errorMessage = "Please enter email and password";
         return;
       }
-      
+
       try {
-        // For testing - determine role from email
-        let role = 'Customer'; // default
-        
-        if (this.email.includes('technician')) {
-          role = 'Technician';
-        } else if (this.email.includes('manager')) {
-          role = 'Manager';
-        } else if (this.email.includes('security')) {
-          role = 'Security';
+        const response = await fetch("http://localhost:3000/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            email: this.email,
+            password: this.password
+          })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          const user = data.user;
+
+          localStorage.setItem("user", JSON.stringify(user));
+          localStorage.setItem("userRole", user.role);
+
+          const roleRoutes = {
+            Customer: "/Home",
+            Technician: "/technician",
+            Manager: "/manager",
+            Security: "/security"
+          };
+
+          alert(`Welcome ${user.role}`);
+          this.$router.push(roleRoutes[user.role]);
+
+        } else {
+          // ✅ THIS SHOWS ERROR FROM BACKEND
+          this.errorMessage = data.message || "Invalid login";
         }
-        
-        // Create user object
-        const userData = {
-          email: this.email,
-          role: role,
-          name: this.email.split('@')[0]
-        };
-        
-        // Store in localStorage
-        localStorage.setItem('user', JSON.stringify(userData));
-        localStorage.setItem('userRole', role);
-        
-        // Redirect based on role
-        const roleRoutes = {
-          'Customer': '/Home',
-          'Technician': '/technician',
-          'Manager': '/manager',
-          'Security': '/security'
-        };
-        
-        // Show success message
-        alert(`Login successful! Welcome ${role}`);
-        
-        // Redirect
-        this.$router.push(roleRoutes[role]);
-        
+
       } catch (error) {
-        this.errorMessage = "Login failed. Please try again.";
         console.error(error);
+        this.errorMessage = "Server error. Try again.";
       }
     }
   }

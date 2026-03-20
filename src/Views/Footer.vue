@@ -1,6 +1,6 @@
 <template>
   <footer class="footer">
-    <p>© 2026 Car Management System | All Rights</p>
+    <p>© 2026 Car Management System | All Rights Reserved</p>
     <div class="footer-icon">
       <i class="fa-brands fa-facebook"></i>
       <i class="fa-brands fa-square-instagram"></i>
